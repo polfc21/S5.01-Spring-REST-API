@@ -21,7 +21,7 @@ public class ShopController {
     @PostMapping
     public ResponseEntity<ShopDTO> createShop(@Valid @RequestBody ShopDTO shopDTO) {
         try {
-            return new ResponseEntity<>(shopService.createShop(shopDTO), HttpStatus.CREATED);
+            return new ResponseEntity<>(this.shopService.createShop(shopDTO), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -29,7 +29,7 @@ public class ShopController {
 
     @GetMapping
     public ResponseEntity<List<ShopDTO>> getAllShops() {
-        List<ShopDTO> shopsDTO = shopService.getAllShops();
+        List<ShopDTO> shopsDTO = this.shopService.getAllShops();
         if (shopsDTO.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -40,7 +40,7 @@ public class ShopController {
     public ResponseEntity<PictureDTO> createPicture(@PathVariable Long id,
                                                     @Valid @RequestBody PictureDTO pictureDTO) {
         try {
-            PictureDTO created = shopService.createPicture(id, pictureDTO);
+            PictureDTO created = this.shopService.createPicture(id, pictureDTO);
             if (created != null) {
                 return new ResponseEntity<>(created, HttpStatus.CREATED);
             }
@@ -52,7 +52,7 @@ public class ShopController {
 
     @GetMapping("/{id}/pictures")
     public ResponseEntity<List<PictureDTO>> getAllPicturesByIdShop(@PathVariable Long id) {
-        List<PictureDTO> picturesDTO = shopService.getAllPictures(id);
+        List<PictureDTO> picturesDTO = this.shopService.getAllPictures(id);
         if (picturesDTO == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -65,10 +65,9 @@ public class ShopController {
     @DeleteMapping("{id}/pictures")
     public ResponseEntity<HttpStatus> deleteAllPicturesByIdShop(@PathVariable Long id) {
         try {
-            shopService.deleteAllPictures(id);
+            this.shopService.deleteAllPictures(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }

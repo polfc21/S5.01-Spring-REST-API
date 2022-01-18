@@ -49,7 +49,7 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public List<PictureDTO> getAllPictures(Long id) {
-        if (shopRepository.existsById(id)) {
+        if (this.shopRepository.existsById(id)) {
             return PictureDTO.getPicturesDTO(this.pictureRepository.getPicturesByShop(this.shopRepository.getById(id)));
         }
         return null;
@@ -62,7 +62,5 @@ public class ShopServiceImpl implements ShopService {
             this.pictureRepository.deletePicturesByShop(this.shopRepository.getById(id));
         }
     }
-
-
 
 }
